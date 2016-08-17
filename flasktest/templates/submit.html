@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+ {% if action %}
+  <title>{{action}}</title>
+ {% else %}
+  <title>error</title>
+ {% endif %}
+</head>
+
+<body>
+<p>{{error}}</p>
+<p>欢迎来到嘹亮古风大家庭!</p>
+<br>
+<p>{{action}} list</p>
+
+ {% if data %}
+  <p>{{data}}</p>
+ {% else %}
+  <p>There is nothing to show.</p>
+ {% endif %}
+
+ {% if flag %}
+  <p>Please Enter your data:</p>
+ <form name="form" width=200 height=400 method="post" action="#">
+<textarea name="profile">#接新
+圈名：***=
+所接工种：***
+备注：***
+有偿还是工种互换：***
+工作效率：***
+QQ号码：***
+发布时间：***
+</textarea>
+  <input type="submit" value="Submit"/>
+ </form>
+ {% else %}
+  <p>Please Enter your data:</p>
+ <form name="form" width=200 height=400 method="post" action="#">
+  <textarea name="profile">#需求
+圈名：***=
+所需工种：***
+备注：***
+有偿还是工种互换：***
+工作效率：***
+QQ号码：***
+发布时间：***
+</textarea>
+  <input type="submit" value="Submit"/>
+ </form>
+ {% endif %}
+
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+from flask import Flask
+from flask import request
+app = Flask(__name__)
+
+@app.route('/')
+def welcome_page():
+    return 'Welcome'
+
+@app.route('/user/<username>')
+def welcome_user(username):
+    return 'Welcome, %s!' % username
+
+@app.route('/jiexin')
+def get_jiexins():
+    pass
+
+@app.route('/Xuqiu')
+def get_xuqiu():
+    pass
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
