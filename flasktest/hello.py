@@ -5,6 +5,7 @@ from flask import Flask, render_template
 from flask import request
 import sys
 import re
+import os
 
 reload(sys)
 
@@ -48,7 +49,7 @@ def get_data(input):
             s=a.readline()
             if(len(s)==0):
                 break
-            strd += "<p>"+str(s)+"<p/>\n"
+            strd += "=="+str(s)
         a.close()
     elif (input==1):
         a=open('xuqiu.txt', 'rt')
@@ -56,7 +57,7 @@ def get_data(input):
             s=a.readline()
             if(len(s)==0):
                 break
-            strd += "<p>"+str(s)+"<p/>\n"
+            strd += "=="+str(s)
         a.close();
     return str(strd)
 
@@ -76,7 +77,7 @@ def jiexins():
             return add_to_jrecord(request.form['profile'])
         else:
             error = 'Invalid input'
-    return render_template('submit.html', action='Jiexin', data=get_data(0), error=error)
+    return render_template('submit.html', action='Jiexin', data=get_data(0), error=error, flag=1)
 
 
 @app.route('/xuqiu', methods=['GET', 'POST'])
@@ -89,6 +90,61 @@ def xuqiu():
             error = 'Invalid input'
     return render_template('submit.html', action='Xuqiu', data=get_data(1), error=error)
 
+@app.route('/resetallxuqiuandjiexin')
+def reset():
+    f=open("jiexin.txt","w")
+    f.truncate()
+    f.close()
+    f=open("xuqiu.txt","w")
+    f.truncate() 
+    f.close()
+    return "Reset succeed!"
+
+@app.route('/delj/<name>')
+def delj(name):
+    if (re.compile("%E5%9C%88%E5%90%8D[^\\n\*]{1,64}").match(str(name)) == 1):
+        return "Wrong Format "+ str(name)
+    os.rename("jiexin.txt","jiexinold.txt")
+    fin=open("jiexinold.txt", "r")
+    fout=open("jiexin.txt", "a")
+    chec=0
+    while 1:
+        st=fin.readline()
+        if (len(st)==0):
+            break
+        if (st.find(name)==-1):
+            fout.write(st)
+        else:
+            chec=1
+    fin.close()
+    fout.close()
+    if(chec==1):
+        return("Deleted")
+    else:
+        return("NotFound")
+
+@app.route('/delx/<name>')
+def delx(name):
+    if (re.compile("%E5%9C%88%E5%90%8D[^\\n\*]{1,64}").match(str(name)) == 1):
+        return "Wrong Format"+str(name)
+    os.rename("xuqiu.txt","xuqiuold.txt")
+    fin=open("xuqiuold.txt", "r")
+    fout=open("xuqiu.txt", "a")
+    chec=0
+    while 1:
+        st=fin.readline()
+        if (len(st)==0):
+            break
+        if (st.find(name)==-1):
+            fout.write(st) 
+        else:
+            chec=1
+    fin.close()
+    fout.close()
+    if(chec==1):
+        return("Deleted")
+    else:
+        return("NotFound")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
