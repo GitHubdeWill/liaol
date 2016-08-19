@@ -22,30 +22,16 @@
 
  {% if flag %}
   <p>Please Enter your data:</p>
- <form name="form" width=200 height=400 method="post" action="#">
-<textarea name="profile">#接新
-圈名：***=
-所接工种：***
-备注：***
-有偿还是工种互换：***
-工作效率：***
-QQ号码：***
-发布时间：***
-</textarea>
+ <form name="form" width=200 height="400" method="post" action="#">
+  <input type="text" name="profile" value="#接新--圈名：***=--所接工种：***--备注：***--有偿还是工种互换：***--工作效率：***--QQ号码：***--发布时间：***">
+  </input>
   <input type="submit" value="Submit"/>
  </form>
  {% else %}
   <p>Please Enter your data:</p>
  <form name="form" width=200 height=400 method="post" action="#">
-  <textarea name="profile">#需求
-圈名：***=
-所需工种：***
-备注：***
-有偿还是工种互换：***
-工作效率：***
-QQ号码：***
-发布时间：***
-</textarea>
+  <input type="text" name="profile" value="#需求--圈名：***=--所需工种：***--备注：***--有偿还是工种互换：***--工作效率：***--QQ号码：***--发布时间：***">
+  </input>
   <input type="submit" value="Submit"/>
  </form>
  {% endif %}
